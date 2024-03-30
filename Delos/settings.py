@@ -32,13 +32,11 @@ SHARED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_countries',
-    'authenticationBase.authentication',
+    'authentication',
     'customers',
 )
 
 TENANT_APPS = (
-    'django.contrib.admin',
-    'authenticationBase.authenticationShared'
     'app.todo',
 )
 
