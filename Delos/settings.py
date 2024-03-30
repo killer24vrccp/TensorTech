@@ -21,8 +21,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
-
 # Application definition
 
 SHARED_APPS = (
@@ -34,11 +32,13 @@ SHARED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_countries',
-    'authentication',
+    'authenticationBase.authentication',
     'customers',
 )
 
 TENANT_APPS = (
+    'django.contrib.admin',
+    'authenticationBase.authenticationShared'
     'app.todo',
 )
 

@@ -1,5 +1,5 @@
 from django.db import models
-from authentication.models import User
+from authenticationBase.authentication.models import User
 from django_tenants.models import TenantMixin, DomainMixin
 
 
