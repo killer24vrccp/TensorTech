@@ -45,9 +45,10 @@ TENANT_APPS = (
 INSTALLED_APPS = list(SHARED_APPS) + [app for app in TENANT_APPS if app not in SHARED_APPS]
 
 TENANT_MODEL = 'customers.Tenant'
-TENANT_DOMAIN_MODEL = 'customers.TenantDomain'
+TENANT_DOMAIN_MODEL = 'customers.Domain'
 TENANT_SUBFOLDER_PREFIX = "api"
 SHOW_PUBLIC_IF_NO_TENANT_FOUND = True
+PUBLIC_SCHEMA_URLCONF = 'Delos.urls_public'
 
 MIDDLEWARE = [
     'django_tenants.middleware.main.TenantMainMiddleware',
