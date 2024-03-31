@@ -9,6 +9,7 @@ class Tenant(TenantMixin):
     """
     name = models.CharField(max_length=100)
     contact = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    teams = models.ManyToManyField(User, blank=True, related_name='teams')
     paid_until = models.DateField()
     on_trial = models.BooleanField()
     created_at = models.DateTimeField(auto_now_add=True)
