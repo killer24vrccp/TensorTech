@@ -1,5 +1,5 @@
 # TensorTech
-TensorTech Project
+Delos IT software.
 
 
 ## Default package 
