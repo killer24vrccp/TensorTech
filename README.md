@@ -22,4 +22,4 @@ TensorTech Project
 
 Work with tenants architecture for better isolation of private application and shared.
 
-By exemple: https://tenant1.domain.com
+By exemple: 'https://tenant1.domain.com'
