@@ -8,6 +8,7 @@ TensorTech Project
 2. django-environ
 3. django-bootstrap-v5
 4. django-tenants
+5. stripe
 
 #### PyVNC
  Use for remote computer
