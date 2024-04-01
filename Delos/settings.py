@@ -1,5 +1,6 @@
 from django.utils.translation import gettext_lazy as _
 from pathlib import Path
+from constance import config
 import psutil
 import platform
 
@@ -17,7 +18,8 @@ BASE_DIR = Path(__file__).resolve().parent
 SECRET_KEY = 'django-insecure-t(6$c+j5es5a(58nu#hf3#c0iqh85_f)89#l0gz2@lzk0zueo*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config.DEBUG
+DATA_UPLOAD_MAX_MEMORY_SIZE = config.MAX_UPLOAD_SIZE_MB * 1024 * 1024
 
 ALLOWED_HOSTS = []
 
@@ -33,8 +35,13 @@ SHARED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'crispy_forms',
+    'crispy_bootstrap5',
     'betterforms',
     'django_countries',
+    'constance',
+    'constance.backends.database',
+
     'authentication',
     'customers',
 )
@@ -50,6 +57,10 @@ TENANT_DOMAIN_MODEL = 'customers.Domain'
 TENANT_SUBFOLDER_PREFIX = "api"
 SHOW_PUBLIC_IF_NO_TENANT_FOUND = True
 PUBLIC_SCHEMA_URLCONF = 'Delos.urls_public'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 MIDDLEWARE = [
     'django_tenants.middleware.main.TenantMainMiddleware',
@@ -67,7 +78,7 @@ ROOT_URLCONF = 'Delos.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -152,3 +163,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # account and user settings
 AUTH_USER_MODEL = 'authentication.User'
 SESSION_COOKIE_AGE = 87000
+
+CONSTANCE_CONFIG = {
+    'SITE_TITLE': ('My Site', _('Site Title of your site')),
+    'MAX_UPLOAD_SIZE_MB': (10, _('Maximum file upload size in MB')),
+    'DEBUG': (_('Debug'), True)
+}
+
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
