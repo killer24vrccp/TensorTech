@@ -21,7 +21,7 @@ SECRET_KEY = 'django-insecure-t(6$c+j5es5a(58nu#hf3#c0iqh85_f)89#l0gz2@lzk0zueo*
 DEBUG = True
 DATA_UPLOAD_MAX_MEMORY_SIZE = 50 * 1024 * 1024  # 50Mb
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 # Application definition
 
@@ -43,6 +43,7 @@ SHARED_APPS = (
     'constance.backends.database',
 
     'authentication',
+    'webcore',
     'customers',
 )
 
@@ -55,7 +56,6 @@ INSTALLED_APPS = list(SHARED_APPS) + [app for app in TENANT_APPS if app not in S
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 TENANT_MODEL = 'customers.Tenant'
 TENANT_DOMAIN_MODEL = 'customers.Domain'
-TENANT_SUBFOLDER_PREFIX = "api"
 SHOW_PUBLIC_IF_NO_TENANT_FOUND = True
 PUBLIC_SCHEMA_URLCONF = 'Delos.urls_public'
 
