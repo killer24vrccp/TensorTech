@@ -18,8 +18,8 @@ BASE_DIR = Path(__file__).resolve().parent
 SECRET_KEY = 'django-insecure-t(6$c+j5es5a(58nu#hf3#c0iqh85_f)89#l0gz2@lzk0zueo*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config.DEBUG
-DATA_UPLOAD_MAX_MEMORY_SIZE = config.MAX_UPLOAD_SIZE_MB * 1024 * 1024
+DEBUG = True
+DATA_UPLOAD_MAX_MEMORY_SIZE = 50 * 1024 * 1024  # 50Mb
 
 ALLOWED_HOSTS = []
 
@@ -166,8 +166,6 @@ SESSION_COOKIE_AGE = 87000
 
 CONSTANCE_CONFIG = {
     'SITE_TITLE': ('My Site', _('Site Title of your site')),
-    'MAX_UPLOAD_SIZE_MB': (10, _('Maximum file upload size in MB')),
-    'DEBUG': (_('Debug'), True)
 }
 
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
