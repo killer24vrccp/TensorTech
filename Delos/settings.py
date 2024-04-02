@@ -1,3 +1,5 @@
+import os
+
 from django.utils.translation import gettext_lazy as _
 from pathlib import Path
 from constance import config
@@ -37,6 +39,7 @@ SHARED_APPS = (
 
     'crispy_forms',
     'crispy_bootstrap5',
+    'bootstrap5',
     'betterforms',
     'django_countries',
     'constance',
@@ -88,6 +91,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'Delos.context_processor.context_processor',
             ],
         },
     },

@@ -1,0 +1,16 @@
+{% load i18n static  %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ app_name }} - {% block title %}{% endblock %}</title>
+    <!--Script block integration -->
+    {
+    {% block script %}{% endblock %}
+</head>
+<body {% block body_class %}{% endblock %}>
+
+
+{% block script_end %}{% endblock %}
+</body>
+</html>
