@@ -186,6 +186,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # account and user settings
 AUTH_USER_MODEL = 'authentication.User'
+LOGIN_REDIRECT_URL = 'webcore:index'
+LOGOUT_REDIRECT_URL = 'webcore:index'
 SESSION_COOKIE_AGE = 87000
 
 CONSTANCE_CONFIG = {
@@ -194,4 +196,3 @@ CONSTANCE_CONFIG = {
 
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 
-AUTHENTICATION_BACKENDS = ['authentication.backends.EmailBackend']
