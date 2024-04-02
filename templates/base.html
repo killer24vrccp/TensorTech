@@ -1,16 +1,16 @@
-{% load i18n static  %}
+{% load i18n static bootstrap5 %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>{{ app_name }} - {% block title %}{% endblock %}</title>
     <!--Script block integration -->
-    {
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
     {% block script %}{% endblock %}
 </head>
 <body {% block body_class %}{% endblock %}>
-
-
+{% block content %}{% endblock %}
 {% block script_end %}{% endblock %}
 </body>
 </html>
