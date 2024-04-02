@@ -16,4 +16,4 @@ class ClientAdmin(TenantAdminMixin, admin.ModelAdmin):
 
 @admin.register(Domain)
 class DomainAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['domain', 'tenant']

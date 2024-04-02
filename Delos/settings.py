@@ -52,6 +52,7 @@ TENANT_APPS = (
 
 INSTALLED_APPS = list(SHARED_APPS) + [app for app in TENANT_APPS if app not in SHARED_APPS]
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 TENANT_MODEL = 'customers.Tenant'
 TENANT_DOMAIN_MODEL = 'customers.Domain'
 TENANT_SUBFOLDER_PREFIX = "api"
