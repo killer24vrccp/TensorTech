@@ -24,6 +24,7 @@ DEBUG = True
 DATA_UPLOAD_MAX_MEMORY_SIZE = 50 * 1024 * 1024  # 50Mb
 
 ALLOWED_HOSTS = ['localhost', 'ezeflow.localhost']
+INTERNAL_IPS = ['127.0.0.1']
 
 # Application definition
 
@@ -44,6 +45,7 @@ SHARED_APPS = (
     'django_countries',
     'constance',
     'rosetta',
+    'debug_toolbar',
     'constance.backends.database',
 
     'authentication',
@@ -77,6 +79,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'Delos.urls'
@@ -190,3 +193,5 @@ CONSTANCE_CONFIG = {
 }
 
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+
+AUTHENTICATION_BACKENDS = ['authentication.backends.EmailBackend']

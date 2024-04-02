@@ -4,9 +4,15 @@ from authentication.models import User
 from django import forms
 
 
-class LoginForm(forms.Form):
-    email = forms.EmailField(label=_('Email'))
-    password = forms.CharField(widget=forms.PasswordInput)
+class LoginForm(forms.ModelForm):
+    class Meta:
+        email = forms.EmailField(label=_('Email'))
+        password = forms.CharField(widget=forms.PasswordInput)
+
+        model = User
+        fields = [
+            'email', 'password',
+        ]
 
 
 class RegisterForm(forms.ModelForm):
@@ -15,13 +21,7 @@ class RegisterForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fieldsets = [
-            (_('Personal info'), {
-                'fields': [
-                    'email', 'password',
-                ],
-            }),
-        ]
+        fields = ('email', 'password')
 
     def clean(self):
         cleaned_data = super().clean()
@@ -33,4 +33,3 @@ class RegisterForm(forms.ModelForm):
 
         # Always return the full collection of cleaned data
         return cleaned_data
-
