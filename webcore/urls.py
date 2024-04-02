@@ -1,5 +1,5 @@
 from django.urls import path
-from webcore.views import  IndexView
+from webcore.views import IndexView
 
 app_name = 'webcore'
 

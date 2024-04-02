@@ -3,6 +3,7 @@ import pprint
 import psutil
 import platform
 
+
 OS = platform.system()  # Display ex: Linux, Windows
 RELEASE = platform.release()  # Display ex: 11
 ARCH = platform.architecture()[0]  # Display ex: x64 or x86
@@ -18,3 +19,4 @@ USER = psutil.users()[0][0]  # Display root user where application run
 MEMORY_USAGE = f'{psutil.virtual_memory()[2]}%'  # Display Free Memory in %
 
 print(CPU_USAGE)
+

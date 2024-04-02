@@ -5,11 +5,17 @@
     <meta charset="UTF-8">
     <title>{{ app_name }} - {% block title %}{% endblock %}</title>
     <!--Script block integration -->
+    <link href="{% static 'css/navbar.css' %}">
     {% bootstrap_css %}
     {% bootstrap_javascript %}
     {% block script %}{% endblock %}
 </head>
-<body {% block body_class %}{% endblock %}>
+<body class="{% block body_class %}{% endblock %}">
+
+<!-- Include navbar -->
+{% include 'navbar.html' %} 
+
+<!-- content and script_end block -->
 {% block content %}{% endblock %}
 {% block script_end %}{% endblock %}
 </body>
