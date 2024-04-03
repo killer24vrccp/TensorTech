@@ -23,7 +23,7 @@ SECRET_KEY = 'django-insecure-t(6$c+j5es5a(58nu#hf3#c0iqh85_f)89#l0gz2@lzk0zueo*
 DEBUG = True
 DATA_UPLOAD_MAX_MEMORY_SIZE = 50 * 1024 * 1024  # 50Mb
 
-ALLOWED_HOSTS = ['localhost', 'cedric-parent.localhost', '192.1.2.5']
+ALLOWED_HOSTS = ['localhost', 'cedric-parent.localhost', '192.1.2.5', '127.0.0.1']
 INTERNAL_IPS = ['127.0.0.1']
 
 # Application definition
@@ -111,7 +111,7 @@ WSGI_APPLICATION = 'Delos.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django_tenants.postgresql_backend',
-        'NAME': 'delios',
+        'NAME': 'tensor',
         'USER': 'postgres',
         'PASSWORD': 'Ezeflow2024$',
         'HOST': '192.1.1.84',

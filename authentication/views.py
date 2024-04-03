@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, View
-from django_tenants.utils import get_tenant_model
+from django_tenants.utils import get_tenant_model, get_tenant_domain_model
 
 from authentication.forms import LoginForm
 
@@ -19,7 +19,7 @@ class LoginView(View):
         return render(request, self.template_name, {'form': form})
 
     def post(self, request):
-        form = LoginForm(request.POST)
+        form = self.form_class(request.POST)
         if form.is_valid():
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
@@ -28,10 +28,18 @@ class LoginView(View):
                 login(request, user)
 
                 # Récupérer l'équipe associée à l'utilisateur
-                team = user.team
+                if hasattr(user, 'team'):
+                    team = user.team
+                else:
+                    # Ajouter ici la gestion de l'erreur s'il n'y a pas d'équipe associée à l'utilisateur
+                    pass
 
                 # Récupérer le locataire associé à l'équipe
-                tenant = team.tenant
+                if hasattr(team, 'tenant'):
+                    tenant = team.tenant
+                else:
+                    # Ajouter ici la gestion de l'erreur s'il n'y a pas de locataire associé à l'équipe
+                    pass
 
                 # Définir le locataire actif
                 set_tenant(tenant)

@@ -6,6 +6,8 @@ from django.utils.translation import gettext_lazy as _
 from authentication.manager.managers import CustomUserManager
 from django.db import models
 
+from customers.models import Teams
+
 
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(
@@ -28,6 +30,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     birth_date = models.DateField(verbose_name=_('Birth Date'), blank=True, null=True)
     phone_number = models.CharField(max_length=10, verbose_name=_('Phone Number'), blank=True)
     date_joined = models.DateTimeField(_("date joined"), default=timezone.now)
+    team = models.ForeignKey(Teams, on_delete=models.SET_NULL, verbose_name=_('Team'), blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
