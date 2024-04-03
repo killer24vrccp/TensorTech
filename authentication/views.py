@@ -1,13 +1,10 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, View
-from django_tenants.utils import get_tenant_model, get_tenant_domain_model
-
 from authentication.forms import LoginForm
-
-
-# Create your views here.
+from customers.models import Domain
 
 
 class LoginView(View):
@@ -27,26 +24,29 @@ class LoginView(View):
             if user is not None:
                 login(request, user)
 
-                # Récupérer l'équipe associée à l'utilisateur
-                if hasattr(user, 'team'):
-                    team = user.team
-                else:
-                    # Ajouter ici la gestion de l'erreur s'il n'y a pas d'équipe associée à l'utilisateur
-                    pass
+                # Check if the user is associated with a team
+                if user.team is None:
+                    messages.add_message(request, messages.ERROR, "You do not belong to any team.")
+                    return render(request, self.template_name, {'form': form})
 
-                # Récupérer le locataire associé à l'équipe
-                if hasattr(team, 'tenant'):
-                    tenant = team.tenant
-                else:
-                    # Ajouter ici la gestion de l'erreur s'il n'y a pas de locataire associé à l'équipe
-                    pass
+                team = user.team
 
-                # Définir le locataire actif
-                set_tenant(tenant)
+                # Check if the team has a tenant associated with it
+                if team.tenant is None:
+                    messages.add_message(request, messages.ERROR, "Your team doesn't have a tenant associated.")
+                    return render(request, self.template_name, {'form': form})
 
-                # Récupérer le domaine associé à ce locataire
-                Domain = get_tenant_model().domain_set.get(tenant=tenant)
-                domain_url = Domain.domain
+                tenant = team.tenant
+
+                try:
+                    domain = Domain.objects.get(tenant=tenant)
+                    tenant_domain = domain.domain
+                except ObjectDoesNotExist:
+                    messages.add_message(request, messages.ERROR, "No Domain associated with your Tenant.")
+                    return render(request, self.template_name, {'form': form})
+
+                # Build the redirection URL
+                domain_url = request.scheme + '://' + tenant_domain
 
                 # Redirection vers le domaine du locataire
                 return redirect(domain_url)

@@ -186,7 +186,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # account and user settings
 AUTH_USER_MODEL = 'authentication.User'
-LOGIN_REDIRECT_URL = 'webcore:index'
+LOGIN_URL = 'authentication.login'
+# LOGIN_REDIRECT_URL = 'webcore:index'
 LOGOUT_REDIRECT_URL = 'webcore:index'
 SESSION_COOKIE_AGE = 87000
 

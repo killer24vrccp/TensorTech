@@ -4,27 +4,14 @@ from django_countries.fields import CountryField
 from django_tenants.models import TenantMixin, DomainMixin
 
 
-class Teams(models.Model):
-    name = models.CharField(max_length=100, unique=True, blank=False)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        db_table = 'teams'
-        verbose_name = _('Team')
-        verbose_name_plural = _('Teams')
-
-
 class Tenant(TenantMixin):
     """
     Class for creating client models using TenantMixin.
     """
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     country = CountryField(verbose_name=_('Country'), null=True, blank=True)
     paid_until = models.DateField()
     is_active = models.BooleanField(default=True)
-    team = models.OneToOneField(Teams, on_delete=models.CASCADE, related_name='tenant_team')
     on_trial = models.BooleanField()
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -51,3 +38,15 @@ class Domain(DomainMixin):
         verbose_name = _('Domain')
         verbose_name_plural = _('Domains')
 
+
+class Teams(models.Model):
+    name = models.CharField(max_length=100, unique=True, blank=False)
+    tenant = models.OneToOneField(Tenant, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = 'teams'
+        verbose_name = _('Team')
+        verbose_name_plural = _('Teams')
