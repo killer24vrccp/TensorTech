@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, View
+from django_tenants.utils import get_tenant_model
 
 from authentication.forms import LoginForm
 
@@ -25,10 +26,25 @@ class LoginView(View):
             user = authenticate(request, email=email, password=password)
             if user is not None:
                 login(request, user)
-                # Redirect to a success page.
-                return redirect('webcore:index')
+
+                # Récupérer l'équipe associée à l'utilisateur
+                team = user.team
+
+                # Récupérer le locataire associé à l'équipe
+                tenant = team.tenant
+
+                # Définir le locataire actif
+                set_tenant(tenant)
+
+                # Récupérer le domaine associé à ce locataire
+                Domain = get_tenant_model().domain_set.get(tenant=tenant)
+                domain_url = Domain.domain
+
+                # Redirection vers le domaine du locataire
+                return redirect(domain_url)
             else:
-                # Return an 'invalid login' error message.
-                return render(request, self.template_name, {'form': form, 'error_message': 'Invalid email or password.'})
+                # Retourner un message d'erreur de connexion invalide
+                return render(request, self.template_name,
+                              {'form': form, 'error_message': 'Invalid email or password.'})
         else:
             return render(request, self.template_name, {'form': form})
