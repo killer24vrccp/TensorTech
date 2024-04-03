@@ -11,7 +11,7 @@ from customers.models import Tenant, Domain
 
 @admin.register(Tenant)
 class ClientAdmin(TenantAdminMixin, admin.ModelAdmin):
-    list_display = ('schema_name', 'name', 'contact', 'country', 'paid_until', 'on_trial')
+    list_display = ('schema_name', 'name', 'country', 'is_active', 'paid_until', 'on_trial')
 
 
 @admin.register(Domain)

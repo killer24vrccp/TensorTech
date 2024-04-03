@@ -25,6 +25,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         blank=True
     )
 
+    birth_date = models.DateField(verbose_name=_('Birth Date'), blank=True, null=True)
     phone_number = models.CharField(max_length=10, verbose_name=_('Phone Number'), blank=True)
     date_joined = models.DateTimeField(_("date joined"), default=timezone.now)
     is_active = models.BooleanField(default=True)
@@ -43,6 +44,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         db_table = 'user'
         verbose_name = _("user")
         verbose_name_plural = _("users")
+
+    def __str__(self):
+        return self.email
 
     @property
     def full_name(self):
