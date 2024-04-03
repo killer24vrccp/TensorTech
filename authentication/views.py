@@ -1,10 +1,8 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
-from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, View
 from authentication.forms import LoginForm
-from customers.models import Domain
 
 
 class LoginView(View):
@@ -15,22 +13,16 @@ class LoginView(View):
         form = self.form_class()
         return render(request, self.template_name, {'form': form})
 
-    def post(self, request):
+    def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
+        context = {'form': form}
         if form.is_valid():
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
             user = authenticate(request, email=email, password=password)
             if user is not None:
                 login(request, user)
-
-                if not user.team or not user.team.tenant:
-                    return render(request, self.template_name, {'form': form})
-
-                try:
-                    domain = Domain.objects.get(tenant=user.team.tenant.id)
-                except ObjectDoesNotExist:
-                    return render(request, self.template_name, {'form': form})
-
-                return redirect(request.scheme + '://' + domain.domain)
-        return render(request, self.template_name, {'form': form})
+                return redirect('webcore:index')
+            else:
+                messages.error(request, 'Invalid login credentials.')
+        return render(request, self.template_name, context)
